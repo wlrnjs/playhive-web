@@ -4,7 +4,6 @@ import QueryProvider from "./_components/QueryProvider";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import GoogleAnalytics from "@/lib/GoogleAnalytics";
 import { suitFont } from "./font";
-import { GoogleAdsScript } from "./_components/googleAds/googleAds";
 
 export const metadata: Metadata = {
   title: { default: "Playhive", template: "Playhive - %s" },
@@ -74,7 +73,6 @@ export default function RootLayout({
           {children}
           {process.env.NODE_ENV === "development" && <ReactQueryDevtools />}
         </QueryProvider>
-        <GoogleAdsScript clientId={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID} />
       </body>
     </html>
   );
