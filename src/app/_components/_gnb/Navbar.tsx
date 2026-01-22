@@ -6,6 +6,7 @@ import { NAVBARS } from "@/app/_constants/navigation";
 import NavSearch from "./_components/NavSearch";
 import { cn } from "@/utils";
 import CustomIcon from "../IconComponents";
+import DemoNotice from "./DemoNotice";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -53,7 +54,7 @@ export default function Navbar() {
     "min-h-[60px] p-[16px] whitespace-nowrap font-medium text-[18px] leading-7 tracking-[-0.04em] text-center cursor-pointer";
 
   return (
-    <>
+    <div className="flex flex-col">
       <div className="w-full max-w-[1200px] min-h-[60px] flex justify-between items-center mx-auto">
         <div className="max-w-[447px] min-h-[60px] flex justify-around">
           {NAVBARS.map((item, index) => (
@@ -89,6 +90,8 @@ export default function Navbar() {
           <NavSearch />
         </div>
       </div>
-    </>
+
+      <DemoNotice />
+    </div>
   );
 }

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const DemoNotice = () => {
   return (
-    <div className="w-full min-h-[32px] flex items-center justify-center bg-slate-50 border-b border-slate-200 px-4">
+    <div className="w-full min-h-[32px] flex items-center justify-center border-t border-b border-slate-200 px-4">
       <p className="text-[12px] leading-[16px] text-slate-700 tracking-[-0.01em] text-center">
         본 사이트는 포트폴리오용 데모 페이지입니다. 실제 서비스는 운영하지
         않으며, GitHub 리포지토리는{" "}
