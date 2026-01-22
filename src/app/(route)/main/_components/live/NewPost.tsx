@@ -7,7 +7,7 @@ import MainPostItemSkeleton from "../state/MainPostItemSkeleton";
 import { NEW_POST_MOCK } from "@mock/livePostMock";
 
 const NewPost = () => {
-  const useMock = process.env.NEXT_PUBLIC_USE_NEWS_MOCK !== "false";
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
   const { data: response, isLoading, isError } = useGetNewContent();
   const newPosts = useMock ? NEW_POST_MOCK : response?.data?.data;
   const isLoadingResolved = useMock ? false : isLoading;

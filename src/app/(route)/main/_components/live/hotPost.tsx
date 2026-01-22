@@ -7,7 +7,7 @@ import MyPagePostEmpty from "@/app/(route)/mypage/posts/_components/MypagePostEm
 import { HOT_POST_MOCK } from "@mock/livePostMock";
 
 const HotPost = () => {
-  const useMock = process.env.NEXT_PUBLIC_USE_NEWS_MOCK !== "false";
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
   const { data: response, isLoading, isError } = useGetHotPost();
   const hotPosts = useMock ? HOT_POST_MOCK : response?.data || [];
   const isLoadingResolved = useMock ? false : isLoading;

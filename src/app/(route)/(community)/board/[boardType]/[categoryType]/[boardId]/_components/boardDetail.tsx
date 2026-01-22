@@ -11,6 +11,7 @@ import PostAction from "@/app/(route)/(community)/_components/PostAction";
 import usePostRecommend from "@/_hooks/fetcher/board/usePostRecommend";
 import useDeleteRecommendPost from "@/_hooks/fetcher/board/useDeleteRecommnedPost";
 import useGetBoardDetail from "@/_hooks/fetcher/board/useGetBoardDetail";
+import { getBoardDetailMock } from "@mock/boardMock";
 import {
   getKoreanBoardType,
   getKoreanCategoryType,
@@ -36,7 +37,13 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
 
   const router = useRouter();
   const { setEditMode, setBoardId, setBoardData } = useEditStore();
-  const { data: boardDetailData, isLoading } = useGetBoardDetail(boardId);
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
+  const { data: apiBoardDetailData, isLoading } = useGetBoardDetail(boardId);
+
+  const boardDetailData = useMock
+    ? getBoardDetailMock(boardId)
+    : apiBoardDetailData;
+  const isLoadingResolved = useMock ? false : isLoading;
   const { data: userData } = useAuthCheck();
   const { mutate: mutateDeletePost } = useDeletePost(boardId);
   const { mutate: mutatePostRecommend } = usePostRecommend({ boardId });
@@ -163,7 +170,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
         )}
       >
         <div className="w-full max-w-[672px] mobile:w-full mobile:max-w-[768px]">
-          {isLoading ? (
+          {isLoadingResolved ? (
             <div>
               <DetailTitleSkeleton />
               <hr />
@@ -229,7 +236,7 @@ const BoardDetail = ({ boardId }: BoardDetailProps) => {
           )}
         </div>
         <div className="content flex flex-col gap-[12px] font-medium text-[16px] leading-[24px] text-gray7 mobile:text-[14px]">
-          {isLoading ? (
+          {isLoadingResolved ? (
             <div className="flex justify-center items-center w-full min-h-[400px]">
               <Spinner className="w-10 h-10" />
             </div>

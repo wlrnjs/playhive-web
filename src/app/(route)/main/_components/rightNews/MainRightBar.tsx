@@ -26,7 +26,7 @@ const MainRightBar = ({ isDesktop }: MainRightBarProps) => {
   const [buttonActive, setButtonActive] = useState(true);
   const isTablet = useIsTablet();
   const isMobile = useIsMobile();
-  const useMock = process.env.NEXT_PUBLIC_USE_NEWS_MOCK !== "false";
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
 
   const skeletonCount = isMobile ? 3 : isTablet ? 3 : 5;
   const size = isMobile ? 3 : isTablet ? 3 : 5;

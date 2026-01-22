@@ -41,7 +41,7 @@ const NewsInfo = ({
     }
   }, [newsDetailType, router]);
 
-  const useNewsMock = process.env.NEXT_PUBLIC_USE_NEWS_MOCK !== "false";
+  const useNewsMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
   const mockDetail = useNewsMock ? getNewsDetailMock(id) : null;
   const { data: apiNewsInfoData, isLoading } = useGetNewsInfoData(id);
 

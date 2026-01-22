@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { cn } from "@/utils";
 import MobileDetailGnb from "@/app/(route)/(community)/_components/gnb/mobileDetailGnb";
 import LeftSidebar from "@/app/(route)/(community)/_components/LeftSidebar";
+import { getBoardListMock } from "@mock/boardMock";
 
 interface BoardDetailPageProps {
   boardId: string;
@@ -25,7 +26,8 @@ const BoardDetailPage = ({
   const searchType = searchParams.get("search_type");
   const orderType = searchParams.get("orderType") || "CREATE";
 
-  const { data: boardData, isLoading } = useGetBoardData({
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
+  const { data: apiBoardData, isLoading } = useGetBoardData({
     boardType: boardType?.toUpperCase(),
     categoryType: categoryType,
     boardId: boardId,
@@ -35,6 +37,10 @@ const BoardDetailPage = ({
     search: searchQuery,
   });
 
+  const boardData = useMock
+    ? getBoardListMock(boardType?.toUpperCase(), categoryType)
+    : apiBoardData;
+  const isLoadingResolved = useMock ? false : isLoading;
   const pageInfo = boardData?.pageInfo;
 
   return (
@@ -66,7 +72,7 @@ mobile:w-full mobile:max-w-[768px] mobile:min-w-[360px]"
           categoryType={categoryType}
           boardData={boardData}
           isDetailPage={true}
-          isLoading={isLoading}
+          isLoading={isLoadingResolved}
         />
       </div>
     </div>

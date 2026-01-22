@@ -48,7 +48,7 @@ export default function NewsPage() {
   };
 
   const useNewsMock =
-    process.env.NEXT_PUBLIC_USE_NEWS_MOCK !== "false";
+    process.env.NEXT_PUBLIC_USE_MOCK !== "false";
   const { data: apiNewsData, isLoading } = useSortedNewsDataList(newsOption);
 
   const newsData = useNewsMock ? NEWS_LIST_DATA_MOCK : apiNewsData;

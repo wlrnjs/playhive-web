@@ -20,7 +20,7 @@ const MainRightBar = dynamic(
 
 function HomePageContent() {
   const isTablet = useIsTablet();
-  const useNewsMock = process.env.NEXT_PUBLIC_USE_NEWS_MOCK !== "false";
+  const useNewsMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
 
   // 뉴스 큰 컴포넌트 데이터
   const {

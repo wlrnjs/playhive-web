@@ -5,7 +5,7 @@ import NewsInfo from "./_components/NewsInfo";
 import { createMetadata } from "@/lib/generateMetadata";
 import { getNewsDetailMock } from "@mock/newsDetailMock";
 
-const useNewsMock = process.env.NEXT_PUBLIC_USE_NEWS_MOCK !== "false";
+const useNewsMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
 
 export async function generateMetadata({
   params,
