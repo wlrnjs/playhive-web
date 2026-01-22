@@ -4,10 +4,14 @@ import useGetHotPost from "@/_hooks/fetcher/main/useGetHotPost";
 import { cn } from "@/utils";
 import MainPostItemSkeleton from "../state/MainPostItemSkeleton";
 import MyPagePostEmpty from "@/app/(route)/mypage/posts/_components/MypagePostEmpty";
+import { HOT_POST_MOCK } from "@mock/livePostMock";
 
 const HotPost = () => {
+  const useMock = process.env.NEXT_PUBLIC_USE_NEWS_MOCK !== "false";
   const { data: response, isLoading, isError } = useGetHotPost();
-  const hotPosts = response?.data || [];
+  const hotPosts = useMock ? HOT_POST_MOCK : response?.data || [];
+  const isLoadingResolved = useMock ? false : isLoading;
+  const isErrorResolved = useMock ? false : isError;
 
   return (
     <div
@@ -27,11 +31,11 @@ const HotPost = () => {
           "w-full min-h-[360px]",
           "mobile:min-h-[auto] mobile:h-fit"
         )}>
-        {isLoading ? (
+        {isLoadingResolved ? (
           Array.from({ length: 10 }).map((_, index) => (
             <MainPostItemSkeleton key={index} />
           ))
-        ) : isError || hotPosts?.length === 0 ? (
+        ) : isErrorResolved || hotPosts?.length === 0 ? (
           <MyPagePostEmpty
             width="w-[419px] mobile:w-full tablet:w-full"
             height="h-[428px]"

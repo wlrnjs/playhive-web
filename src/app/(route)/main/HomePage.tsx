@@ -9,16 +9,22 @@ import MainRightSection from "./_components/section/MainRightSection";
 import { extractNewsItemsPair } from "./_utils/extractNewsItems";
 import { getNewsStatus } from "./_utils/getNewsStatus";
 import dynamic from "next/dynamic";
+import {
+  MAIN_BIG_NEWS_MOCK,
+  MAIN_NEWS_MOCK,
+} from "@mock/mainPageMock";
+
 const MainRightBar = dynamic(
   () => import("./_components/rightNews/MainRightBar")
 );
 
 function HomePageContent() {
   const isTablet = useIsTablet();
+  const useNewsMock = process.env.NEXT_PUBLIC_USE_NEWS_MOCK !== "false";
 
   // 뉴스 큰 컴포넌트 데이터
   const {
-    data: bigNewsData,
+    data: apiBigNewsData,
     isLoading: bigNewsDataIsLoading,
     isError: bigNewsDataIsError,
   } = useGetNewsDataList({
@@ -32,10 +38,18 @@ function HomePageContent() {
 
   // 뉴스 컴포넌트 데이터
   const {
-    data: newsData,
+    data: apiNewsData,
     isLoading: newsDataIsLoading,
     isError: newsDataIsError,
   } = useGetNewsDataList();
+
+  const bigNewsData = useNewsMock ? MAIN_BIG_NEWS_MOCK : apiBigNewsData;
+  const newsData = useNewsMock ? MAIN_NEWS_MOCK : apiNewsData;
+
+  const bigNewsDataIsLoadingResolved = useNewsMock ? false : bigNewsDataIsLoading;
+  const newsDataIsLoadingResolved = useNewsMock ? false : newsDataIsLoading;
+  const bigNewsDataIsErrorResolved = useNewsMock ? false : bigNewsDataIsError;
+  const newsDataIsErrorResolved = useNewsMock ? false : newsDataIsError;
 
   // 뉴스 데이터 유틸 함수
   const { newsItems, bigNewsItems } = extractNewsItemsPair({
@@ -47,8 +61,8 @@ function HomePageContent() {
   const { isValidNews, isError } = getNewsStatus({
     newsItems,
     bigNewsItems,
-    newsDataIsError,
-    bigNewsDataIsError,
+    newsDataIsError: newsDataIsErrorResolved,
+    bigNewsDataIsError: bigNewsDataIsErrorResolved,
   });
 
   return (
@@ -74,8 +88,8 @@ function HomePageContent() {
               isTablet,
               isValidNews,
               isError,
-              bigNewsDataIsLoading,
-              newsDataIsLoading,
+              bigNewsDataIsLoading: bigNewsDataIsLoadingResolved,
+              newsDataIsLoading: newsDataIsLoadingResolved,
             }}
           />
           {!isTablet && <MainRightBar isDesktop />}
