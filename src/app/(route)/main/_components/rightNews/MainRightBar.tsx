@@ -11,6 +11,10 @@ import { getRightBarTabs } from "../../_constants/RIGHT_BAR_TABS";
 import MainRightTab from "./MainRightTab";
 import MainRightPagination from "./MainRightPagination";
 import MainContentSection from "./MainContentSection";
+import {
+  GAME_EVENT_MOCK,
+  MAIN_RIGHT_BAR_NEWS_MOCK,
+} from "@mock/mainRightBarMock";
 
 interface MainRightBarProps {
   isDesktop: boolean;
@@ -22,13 +26,14 @@ const MainRightBar = ({ isDesktop }: MainRightBarProps) => {
   const [buttonActive, setButtonActive] = useState(true);
   const isTablet = useIsTablet();
   const isMobile = useIsMobile();
+  const useMock = process.env.NEXT_PUBLIC_USE_NEWS_MOCK !== "false";
 
   const skeletonCount = isMobile ? 3 : isTablet ? 3 : 5;
   const size = isMobile ? 3 : isTablet ? 3 : 5;
 
   // 게임 이벤트 데이터
   const {
-    data: gameEventData,
+    data: apiGameEventData,
     isLoading: eventIsLoading,
     isError: eventIsError,
     refetch: refetchGameEvent,
@@ -39,11 +44,20 @@ const MainRightBar = ({ isDesktop }: MainRightBarProps) => {
 
   // 뉴스 데이터
   const {
-    data: filteredNewsData,
+    data: apiFilteredNewsData,
     isLoading: newsIsLoading,
     isError: newsIsError,
     refetch: refetchNewsData,
   } = useGetMainRightBarNewsData({ page: currentPage, size });
+
+  const gameEventData = useMock ? GAME_EVENT_MOCK : apiGameEventData;
+  const filteredNewsData = useMock
+    ? MAIN_RIGHT_BAR_NEWS_MOCK
+    : apiFilteredNewsData;
+  const eventIsLoadingResolved = useMock ? false : eventIsLoading;
+  const newsIsLoadingResolved = useMock ? false : newsIsLoading;
+  const eventIsErrorResolved = useMock ? false : eventIsError;
+  const newsIsErrorResolved = useMock ? false : newsIsError;
 
   // 탭 유틸 함수
   const tap = getRightBarTabs(setButtonActive, buttonActive);
@@ -65,7 +79,12 @@ const MainRightBar = ({ isDesktop }: MainRightBarProps) => {
       <MainContentSection
         buttonActive={buttonActive}
         data={{ filteredNewsData, gameEventData }}
-        state={{ newsIsLoading, newsIsError, eventIsLoading, eventIsError }}
+        state={{
+          newsIsLoading: newsIsLoadingResolved,
+          newsIsError: newsIsErrorResolved,
+          eventIsLoading: eventIsLoadingResolved,
+          eventIsError: eventIsErrorResolved,
+        }}
         skeletonCount={skeletonCount}
         refetch={{ refetchNewsData, refetchGameEvent }}
       />
@@ -79,7 +98,7 @@ const MainRightBar = ({ isDesktop }: MainRightBarProps) => {
       />
 
       {!buttonActive &&
-        (eventIsLoading || gameEventData?.content?.length > 0) && (
+        (eventIsLoadingResolved || gameEventData?.content?.length > 0) && (
           <MainRightBarPagination
             pageNum={pageNum}
             setPageNum={setPageNum}
