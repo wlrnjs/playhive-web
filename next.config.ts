@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
 
   images: {
     domains: [
+      "picsum.photos",
       "imgnews.pstatic.net",
       "43.201.99.157",
       "54.180.104.178",

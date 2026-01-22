@@ -1,0 +1,295 @@
+import type { NewsListDataType } from "@/app/(route)/news/_types/newsListItemType";
+import type { newsListConfig } from "@/app/(route)/news/_types/newsListConfig";
+
+/**
+ * newsListConfig 타입에 맞는 뉴스 목록 목업 데이터
+ * - page, size, category, orderType, searchType, search, timePeriod
+ */
+export const NEWS_LIST_CONFIG_MOCK: newsListConfig = {
+  page: 1,
+  size: 20,
+  category: "",
+  orderType: "CREATE",
+  searchType: "",
+  search: "",
+  timePeriod: "DAILY",
+};
+
+/**
+ * API 응답 형태의 뉴스 목록 목업 (content 20개 + pageInfo)
+ */
+export const NEWS_LIST_DATA_MOCK: NewsListDataType = {
+  content: [
+    {
+      id: 1,
+      title: "롯데, 4연패 탈출…김윤동 5이닝 1실점 호투",
+      category: "BASEBALL",
+      thumbImg: "https://picsum.photos/seed/1/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
+      content:
+        "롯데 자이언츠가 김윤동의 호투에 힘입어 4연패에서 탈출했다. 김윤동은 5이닝 1실점으로 QS를 기록하며 승리 투수가 됐다.",
+      commentCount: 12,
+      source: "네이버 스포츠",
+      viewCount: 3240,
+      recommendCount: 89,
+      hot: "Y",
+    },
+    {
+      id: 2,
+      title: "손흥민, 프리미어리그 시즌 20골 돌파",
+      category: "FOOTBALL",
+      thumbImg: "https://picsum.photos/seed/2/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(),
+      content:
+        "토트넘 손흥민이 막판 결승골로 팀의 3-2 역전승을 이끌었다. 이번 시즌 20골을 기록하며 개인 최다 골 기록을 경신했다.",
+      commentCount: 256,
+      source: "네이버 스포츠",
+      viewCount: 15200,
+      recommendCount: 1203,
+    },
+    {
+      id: 3,
+      title: "T1, MSI 결승 진출…젠지와 리매치 성사",
+      category: "ESPORTS",
+      thumbImg: "https://picsum.photos/seed/3/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 60 * 5).toISOString(),
+      content:
+        "T1이 블라디프에서 열린 MSI 2024 4강에서 BLG를 3-1로 꺾고 결승에 올랐다. 젠지와의 LCK 리매치가 성사됐다.",
+      commentCount: 512,
+      source: "네이버 스포츠",
+      viewCount: 28400,
+      recommendCount: 2104,
+      hot: "Y",
+    },
+    {
+      id: 4,
+      title: "KIA 타이거즈, 3연전 스윕으로 2위 도약",
+      category: "BASEBALL",
+      thumbImg: "https://picsum.photos/seed/4/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 60 * 8).toISOString(),
+      content:
+        "KIA가 주말 3연전을 모두 제패하며 순위표 2위로 올라섰다. 나성범의 타격감 회복이 큰 힘이 됐다.",
+      commentCount: 67,
+      source: "네이버 스포츠",
+      viewCount: 8900,
+      recommendCount: 312,
+    },
+    {
+      id: 5,
+      title: "이강인, 마요르카 소속으로 리그 10골-10도움 달성",
+      category: "FOOTBALL",
+      thumbImg: "https://picsum.photos/seed/5/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 60 * 12).toISOString(),
+      content:
+        "이강인이 마요르카에서 시즌 10골 10도움을 기록하며 더블-더블을 달성했다. 라리가 이적 후 최고의 시즌을 보내고 있다.",
+      commentCount: 189,
+      source: "네이버 스포츠",
+      viewCount: 12600,
+      recommendCount: 876,
+    },
+    {
+      id: 6,
+      title: "젠지, DK 꺾고 LCK 스프링 우승",
+      category: "ESPORTS",
+      thumbImg: "https://picsum.photos/seed/6/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 60 * 18).toISOString(),
+      content:
+        "젠지 e스포츠가 DK를 3-1로 꺾고 LCK 스프링 2024 우승을 차지했다. 쵸비의 MVP級 활약이 빛났다.",
+      commentCount: 423,
+      source: "네이버 스포츠",
+      viewCount: 35200,
+      recommendCount: 1892,
+      hot: "Y",
+    },
+    {
+      id: 7,
+      title: "SSG 랜더스, 김광현 7이닝 무실점 역투",
+      category: "BASEBALL",
+      thumbImg: "https://picsum.photos/seed/7/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(),
+      content:
+        "SSG 김광현이 7이닝을 무실점으로 막으며 팀의 2-0 승리를 이끌었다. 5탈삼진 1볼넷으로 피안타 4개만 허용했다.",
+      commentCount: 45,
+      source: "네이버 스포츠",
+      viewCount: 6700,
+      recommendCount: 234,
+    },
+    {
+      id: 8,
+      title: "한국, 월드컵 아시아 3차 예선 B조 1위",
+      category: "FOOTBALL",
+      thumbImg: "https://picsum.photos/seed/8/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 60 * 28).toISOString(),
+      content:
+        "대한민국 대표팀이 월드컵 아시아 3차 예선 B조 1위로 본선 직행 티켓을 확보했다. 손흥민-이강인 조합이 핵심이 됐다.",
+      commentCount: 567,
+      source: "네이버 스포츠",
+      viewCount: 42100,
+      recommendCount: 3201,
+    },
+    {
+      id: 9,
+      title: "DRX, 2024 발로란트 챔피언스 투어 참가",
+      category: "ESPORTS",
+      thumbImg: "https://picsum.photos/seed/9/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 60 * 36).toISOString(),
+      content:
+        "DRX가 2024 발로란트 챔피언스 투어 페이즈에 참가한다. 한국 대표로 국제 대회에 나선다.",
+      commentCount: 134,
+      source: "네이버 스포츠",
+      viewCount: 9800,
+      recommendCount: 445,
+    },
+    {
+      id: 10,
+      title: "두산 베어스, 유네스키 8이닝 1실점 완투승",
+      category: "BASEBALL",
+      thumbImg: "https://picsum.photos/seed/10/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 60 * 42).toISOString(),
+      content:
+        "두산 유네스키 마야가 8이닝 1실점으로 맹활약하며 완투승을 거뒀다. 9탈삼진으로 상대 타선을 꽁꽁 묶었다.",
+      commentCount: 78,
+      source: "네이버 스포츠",
+      viewCount: 11200,
+      recommendCount: 567,
+    },
+    {
+      id: 11,
+      title: "황희찬, 울버햄턴서 시즌 12골 기록",
+      category: "FOOTBALL",
+      thumbImg: "https://picsum.photos/seed/11/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 60 * 48).toISOString(),
+      content:
+        "황희찬이 울버햄턴에서 프리미어리그 시즌 12골을 터뜨리며 팀 내 최다 득점자가 됐다. 이번 시즌 커리어 하이를 갱신했다.",
+      commentCount: 234,
+      source: "네이버 스포츠",
+      viewCount: 18900,
+      recommendCount: 1023,
+    },
+    {
+      id: 12,
+      title: "아프리카TV, 2024 LOL 아마추어 대회 개최",
+      category: "ESPORTS",
+      thumbImg: "https://picsum.photos/seed/12/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 60 * 54).toISOString(),
+      content:
+        "아프리카TV가 2024 LOL 아마추어 대회를 개최한다. 총 상금 5천만 원 규모로 전국 예선을 진행한다.",
+      commentCount: 89,
+      source: "네이버 스포츠",
+      viewCount: 5400,
+      recommendCount: 178,
+    },
+    {
+      id: 13,
+      title: "LG 트윈스, 5월 완벽한 달…10연승 달성",
+      category: "BASEBALL",
+      thumbImg: "https://picsum.photos/seed/13/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 60 * 60).toISOString(),
+      content:
+        "LG가 5월 들어 10연승을 달성하며 1위 자리를 굳혔다. 오스틴-박건우 중심의 타선이 맹위를 떨치고 있다.",
+      commentCount: 312,
+      source: "네이버 스포츠",
+      viewCount: 25600,
+      recommendCount: 1456,
+      hot: "Y",
+    },
+    {
+      id: 14,
+      title: "EPL 막방 라운드, 손흥민 해트트릭",
+      category: "FOOTBALL",
+      thumbImg: "https://picsum.photos/seed/14/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 60 * 66).toISOString(),
+      content:
+        "토트넘 막방 경기에서 손흥민이 해트트릭을 기록하며 팀의 5-1 대승에 기여했다. 골든부트 경쟁에서 유리한 위치를 확보했다.",
+      commentCount: 678,
+      source: "네이버 스포츠",
+      viewCount: 48900,
+      recommendCount: 4123,
+    },
+    {
+      id: 15,
+      title: "리그 오브 레전드, 14.10 패치 노트 공개",
+      category: "ESPORTS",
+      thumbImg: "https://picsum.photos/seed/15/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 60 * 72).toISOString(),
+      content:
+        "라이엇 게임즈가 LOL 14.10 패치 노트를 공개했다. 여러 챔피언 밸런스 조정과 아이템 변경이 예정돼 있다.",
+      commentCount: 445,
+      source: "네이버 스포츠",
+      viewCount: 32100,
+      recommendCount: 1567,
+    },
+    {
+      id: 16,
+      title: "NC 다이노스, 페디 전역 후 첫 선발승",
+      category: "BASEBALL",
+      thumbImg: "https://picsum.photos/seed/16/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 60 * 80).toISOString(),
+      content:
+        "NC 에릭 페디가 군 전역 후 첫 선발 등판에서 6이닝 2실점 QS를 기록하며 승리 투수가 됐다.",
+      commentCount: 156,
+      source: "네이버 스포츠",
+      viewCount: 14300,
+      recommendCount: 734,
+    },
+    {
+      id: 17,
+      title: "유럽축구 이적시장, 한국 선수들 러브콜",
+      category: "FOOTBALL",
+      thumbImg: "https://picsum.photos/seed/17/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 60 * 88).toISOString(),
+      content:
+        "여름 이적시장을 앞두고 손흥민, 이강인, 김민재 등 한국 대표팀 선수들에게 유럽 빅클럽들서 러브콜이 쏟아지고 있다.",
+      commentCount: 423,
+      source: "네이버 스포츠",
+      viewCount: 28700,
+      recommendCount: 1890,
+    },
+    {
+      id: 18,
+      title: "오버워치2 월드컵, 한국 우승",
+      category: "ESPORTS",
+      thumbImg: "https://picsum.photos/seed/18/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 60 * 96).toISOString(),
+      content:
+        "오버워치2 월드컵에서 한국 대표팀이 중국을 꺾고 우승을 차지했다. 3년 연속 정상에 올랐다.",
+      commentCount: 267,
+      source: "네이버 스포츠",
+      viewCount: 19800,
+      recommendCount: 1123,
+    },
+    {
+      id: 19,
+      title: "삼성 라이온즈, 5월 첫 3연승",
+      category: "BASEBALL",
+      thumbImg: "https://picsum.photos/seed/19/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 60 * 104).toISOString(),
+      content:
+        "삼성이 주말 3연전 스윕으로 5월 들어 첫 3연승을 달성했다. 타선 폭발과 선발진 안정화가 맞물렸다.",
+      commentCount: 98,
+      source: "네이버 스포츠",
+      viewCount: 8700,
+      recommendCount: 345,
+    },
+    {
+      id: 20,
+      title: "김민재, 바이에른 뮌헨 주장 완장 차고 선발",
+      category: "FOOTBALL",
+      thumbImg: "https://picsum.photos/seed/20/160/92",
+      postDate: new Date(Date.now() - 1000 * 60 * 60 * 120).toISOString(),
+      content:
+        "김민재가 부상에서 복귀한 뒤 첫 선발로 나서 팀 주장 완장을 차고 풀타임 뛰며 클린시트에 기여했다.",
+      commentCount: 534,
+      source: "네이버 스포츠",
+      viewCount: 36200,
+      recommendCount: 2567,
+      hot: "Y",
+    },
+  ],
+  pageInfo: {
+    currentPage: 1,
+    totalElement: 20,
+    totalPage: 1,
+  },
+};
+

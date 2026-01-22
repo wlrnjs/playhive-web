@@ -14,6 +14,7 @@ import { cn } from "@/utils";
 import Pagination from "../../mypage/_components/Pagination";
 import changeURLParams from "../../mypage/util/changeURLParams";
 import { getOrderType } from "../_utils/getOrderType";
+import { NEWS_LIST_DATA_MOCK } from "@mock/newsListMock";
 
 type NewsCategoryType = "" | "ESPORTS" | "FOOTBALL" | "BASEBALL";
 
@@ -46,7 +47,12 @@ export default function NewsPage() {
       (searchParams.get("time") as newsListConfig["timePeriod"]) || "DAILY",
   };
 
-  const { data: newsData, isLoading } = useSortedNewsDataList(newsOption);
+  const useNewsMock =
+    process.env.NEXT_PUBLIC_USE_NEWS_MOCK !== "false";
+  const { data: apiNewsData, isLoading } = useSortedNewsDataList(newsOption);
+
+  const newsData = useNewsMock ? NEWS_LIST_DATA_MOCK : apiNewsData;
+  const isLoadingNews = useNewsMock ? false : isLoading;
 
   const handlePageChange = (page: number) => {
     if (page < 1 || page > newsData?.pageInfo?.totalPage) return;
@@ -80,7 +86,7 @@ export default function NewsPage() {
               "shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)]"
           )}
         >
-          {isLoading ? (
+          {isLoadingNews ? (
             Array(10)
               .fill(0)
               .map((_, index) => <NewsPostItemSkeleton key={index} />)
