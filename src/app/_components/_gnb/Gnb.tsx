@@ -4,6 +4,7 @@ import { cn } from "@/utils";
 import Header from "./Header";
 import Navbar from "./Navbar";
 import { usePathname } from "next/navigation";
+import DemoNotice from "./DemoNotice";
 
 export default function Gnb() {
   const pathname = usePathname();
@@ -16,11 +17,12 @@ export default function Gnb() {
           isHome && "fixed",
           "w-full top-0 bg-white shadow-[0px_6px_10px_0px_rgba(0,0,0,0.05)] z-50 h-[120px]",
           "tablet:px-[16px]",
-          "mobile:hidden"
+          "mobile:hidden",
         )}
       >
         <Header />
         <Navbar />
+        <DemoNotice />
       </div>
       {isHome && <div className="pt-[120px] mobile:pt-0"></div>}
     </>

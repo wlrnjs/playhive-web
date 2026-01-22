@@ -24,7 +24,7 @@ export default function Navbar() {
     if (lowerPath.startsWith("/main") && lowerId === "main") return true;
 
     const boardMatch = lowerPath.match(
-      /^\/board\/([^/]+)\/([^/]+)(?:\/(\d+))?/
+      /^\/board\/([^/]+)\/([^/]+)(?:\/(\d+))?/,
     );
     if (boardMatch) {
       const category = boardMatch[1];
@@ -66,8 +66,9 @@ export default function Navbar() {
                     ? "font-bold text-gra"
                     : "font-medium text-gray9",
                   index === 0 ? "pl-0" : "",
-                  item.id === "matchBroadcast" && "relative py-4 pr-4 pl-[3px]"
-                )}>
+                  item.id === "matchBroadcast" && "relative py-4 pr-4 pl-[3px]",
+                )}
+              >
                 {item.id === "matchBroadcast" ? (
                   <div className="flex items-center">
                     <span className="inline-block w-2 h-2 rounded-full bg-new mr-[5px]"></span>
