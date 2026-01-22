@@ -14,6 +14,7 @@ import NewsDetailContent from "./NewsDetailContent";
 import NewsRecommend from "./NewsRecommend";
 import NewsComment from "./NewsComment";
 import useNewsRecommend from "@/app/(route)/news/_hooks/useNewsRecommend";
+import { getNewsDetailMock } from "@mock/newsDetailMock";
 
 const NewsInfo = ({
   params,
@@ -40,7 +41,12 @@ const NewsInfo = ({
     }
   }, [newsDetailType, router]);
 
-  const { data: newsInfoData, isLoading } = useGetNewsInfoData(id);
+  const useNewsMock = process.env.NEXT_PUBLIC_USE_NEWS_MOCK !== "false";
+  const mockDetail = useNewsMock ? getNewsDetailMock(id) : null;
+  const { data: apiNewsInfoData, isLoading } = useGetNewsInfoData(id);
+
+  const newsInfoData = useNewsMock && mockDetail ? mockDetail : apiNewsInfoData;
+  const isLoadingNews = useNewsMock && mockDetail ? false : isLoading;
 
   // commentId 쿼리 파라미터가 있을 경우, 해당 댓글 DOM으로 스크롤
   useEffect(() => {
@@ -66,8 +72,8 @@ const NewsInfo = ({
 
   return (
     <>
-      {isLoading && <NewsInfoSkeleton />}
-      {!isLoading && (
+      {isLoadingNews && <NewsInfoSkeleton />}
+      {!isLoadingNews && (
         <>
           {/* 모바일 GNB */}
           <div className={cn("pc:hidden tablet:hidden")}>
@@ -99,7 +105,7 @@ const NewsInfo = ({
 
       {/* 추천 뉴스 */}
       <NewsRecommend
-        isLoading={isLoading}
+        isLoading={isLoadingNews}
         newsCategoryType={newsCategoryType}
         searchParams={searchParams}
       />

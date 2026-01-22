@@ -3,14 +3,33 @@ import React from "react";
 import getNewsItemInfo from "@/services/news/GetNewsItemInfo";
 import NewsInfo from "./_components/NewsInfo";
 import { createMetadata } from "@/lib/generateMetadata";
+import { getNewsDetailMock } from "@mock/newsDetailMock";
+
+const useNewsMock = process.env.NEXT_PUBLIC_USE_NEWS_MOCK !== "false";
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ id: string; newsCategoryType: string }>;
 }): Promise<Metadata> {
+  const resolvedParams = await params;
+
+  if (useNewsMock) {
+    const mockDetail = getNewsDetailMock(resolvedParams.id);
+    if (mockDetail) {
+      return createMetadata({
+        title: mockDetail.title,
+        content: mockDetail.content,
+        thumbUrl: mockDetail.thumbImg,
+        fallbackTitle: "뉴스 상세 페이지",
+        fallbackDescription: "뉴스 상세 내용",
+        stripHtmlContent: false,
+        keywords: ["플레이하이브", "뉴스"],
+      });
+    }
+  }
+
   try {
-    const resolvedParams = await params;
     const newsDetail = await getNewsItemInfo({
       id: resolvedParams.id,
       openGraph: true,

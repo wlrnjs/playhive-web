@@ -16,6 +16,7 @@ const NewsContent = ({ newsInfoData }: NewsContentProps) => {
           alt="News detail img"
           width={672}
           height={338}
+          priority
           className="object-cover mobile:h-auto"
         />
       )}

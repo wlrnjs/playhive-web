@@ -27,7 +27,7 @@ const NewsDetailGnb = ({
   const [reportActiveModal, setReportActiveModal] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const [guestModal, setGuestModal] = useState(false);
-  const url = window.location.href;
+  const [url, setUrl] = useState("");
   const router = useRouter();
   const adminRole = useAdminRole();
 
@@ -57,6 +57,10 @@ const NewsDetailGnb = ({
       setIsSticky(false);
     }
   };
+
+  useEffect(() => {
+    setUrl(typeof window !== "undefined" ? window.location.href : "");
+  }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
