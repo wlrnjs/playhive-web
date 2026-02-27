@@ -14,6 +14,7 @@ import Pagination from "../../mypage/_components/Pagination";
 import SearchResultList from "../_components/SearchResultList";
 import { searchOptions } from "../_types/searchOptions";
 import { usePageChange } from "../_utils/usePageChange";
+import { TOTAL_SEARCH_MOCK } from "@mock/totalSearchMock";
 
 const Page = () => {
   const params = useParams() as { searchCategory: string };
@@ -23,6 +24,7 @@ const Page = () => {
   const handlePageChange = usePageChange();
   const searchType = pathname.split("/")[2];
   const category = params.searchCategory || "news";
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
 
   // 타입 검증
   useEffect(() => {
@@ -42,10 +44,14 @@ const Page = () => {
   }
 
   const {
-    data: searchData,
+    data: searchResponse,
     isLoading,
     isError,
   } = useGetSearchDataList(options);
+
+  const searchData = useMock ? TOTAL_SEARCH_MOCK : searchResponse;
+  const isSearchLoading = useMock ? false : isLoading;
+  const isSearchError = useMock ? false : isError;
 
   return (
     <div
@@ -79,7 +85,7 @@ const Page = () => {
           searchType={searchType}
           searchData={searchData}
           searchParams={searchParams}
-          fetchStatus={{ isLoading, isError }}
+          fetchStatus={{ isLoading: isSearchLoading, isError: isSearchError }}
         />
 
         {/* 페이지네이션 */}
