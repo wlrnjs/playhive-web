@@ -10,6 +10,7 @@ import SendCommentBox from "@/app/_components/_comment/SendCommentBox";
 import { CommentItem } from "@/_types/comment";
 import ResponsiveTab from "../../_components/ResponsiveTab";
 import { cn } from "@/utils";
+import { MATCH_SCHEDULE_MOCK } from "@mock/matchScheduleMock";
 
 export default function MatchDetailPage({
   params,
@@ -20,6 +21,7 @@ export default function MatchDetailPage({
   const { matchType, matchId } = unwrappedParams;
   const matchIdNum = matchId;
   const stringId = matchId.toString();
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
 
   const [parentsComment, setParentsComment] = useState<CommentItem | null>(
     null
@@ -28,9 +30,12 @@ export default function MatchDetailPage({
   const [activeValue, setActiveValue] = useState("prediction");
   const [isPc, setIsPc] = useState(false);
 
-  const { data: matchSchedule, isLoading } = useGetMatchSchedule(matchType);
+  const { data: matchScheduleResponse, isLoading } = useGetMatchSchedule(matchType);
 
-  const comments = useRef(null);
+  const matchSchedule = useMock ? MATCH_SCHEDULE_MOCK : matchScheduleResponse;
+  const isScheduleLoading = useMock ? false : isLoading;
+
+  const comments = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -62,7 +67,7 @@ export default function MatchDetailPage({
     }
   };
 
-  if (isLoading) {
+  if (isScheduleLoading) {
     return <MatchDetailSkeleton matchType={matchType} />;
   }
 
