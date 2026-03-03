@@ -5,6 +5,7 @@ import { CommunityToolbar } from "../../../_components/CommunityToolbar";
 import PostItem from "../../../_components/PostItem";
 import useGetBoardData from "@/_hooks/getBoardData";
 import { cn } from "@/utils";
+import { getBoardListMock } from "@mock/boardMock";
 import { useSearchParams } from "next/navigation";
 
 interface category {
@@ -15,6 +16,7 @@ interface category {
 export default function Category({ params }: { params: Promise<category> }) {
   const unwrappedParams = use(params);
   const { boardType, categoryType } = unwrappedParams;
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
 
   const searchParams = useSearchParams();
   const currentPage = searchParams.get("page") || "1";
@@ -22,7 +24,7 @@ export default function Category({ params }: { params: Promise<category> }) {
   const searchType = searchParams.get("search_type");
   const orderType = searchParams.get("orderType") || "CREATE";
 
-  const { data: boardData, isLoading } = useGetBoardData({
+  const { data: apiBoardData, isLoading } = useGetBoardData({
     boardType: boardType?.toUpperCase(),
     categoryType: categoryType,
     orderType: orderType,
@@ -30,6 +32,11 @@ export default function Category({ params }: { params: Promise<category> }) {
     searchType: searchQuery ? searchType : undefined,
     search: searchQuery,
   });
+
+  const boardData = useMock
+    ? getBoardListMock(boardType?.toUpperCase(), categoryType)
+    : apiBoardData;
+  const isLoadingResolved = useMock ? false : isLoading;
 
   const pageInfo = boardData?.pageInfo;
 
@@ -53,7 +60,7 @@ export default function Category({ params }: { params: Promise<category> }) {
           boardData={boardData}
           pageInfo={pageInfo}
           isDetailPage={false}
-          isLoading={isLoading}
+          isLoading={isLoadingResolved}
         />
       </div>
     </div>
