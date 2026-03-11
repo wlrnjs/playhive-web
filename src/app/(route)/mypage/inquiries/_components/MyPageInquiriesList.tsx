@@ -13,6 +13,7 @@ import Pagination from "../../_components/Pagination";
 import { useRouter } from "next/navigation";
 import changeURLParams from "../../util/changeURLParams";
 import { usePathname } from "next/navigation";
+import { INQUIRIES_LIST_MOCK } from "@mock/mypageMock";
 
 const MyPageInquiriesList = () => {
   const searchParams = useSearchParams();
@@ -32,7 +33,13 @@ const MyPageInquiriesList = () => {
     search: searchParams.get("search") || "",
   };
 
-  const { data, isLoading } = useGetInquiriesList(inquiriesOption);
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
+
+  const { data: apiData, isLoading: apiIsLoading } = useGetInquiriesList(inquiriesOption);
+
+  const data = useMock ? INQUIRIES_LIST_MOCK : apiData;
+  const isLoading = useMock ? false : apiIsLoading;
+
   const { content, pageInfo } = data?.data?.list || {};
 
   const handlePageChange = (page: number) => {
