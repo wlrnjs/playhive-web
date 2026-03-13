@@ -9,6 +9,7 @@ import ItemContainer from "../../_components/ui/ItemContainer";
 import useFeedbackQueryParams from "./_hooks/useFeedbackQueryParams";
 import useNoticeItems from "./_hooks/useNoticeItems";
 import ListLayout from "../../_components/common/ListLayout";
+import { FEEDBACK_LIST_MOCK } from "@mock/customerMock";
 
 const Page = () => {
   return (
@@ -27,12 +28,18 @@ const FeedbackPage = () => {
   const { slicedNoticeDataList, noticeIsError, noticeIsLoading } =
     useNoticeItems();
 
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
+
   // 개선요청 데이터 호출
   const {
-    data: feedbackDataList,
+    data: apiFeedbackDataList,
     isLoading,
     isError,
   } = useGetFeedbackDataList(feedbackOption);
+
+  const feedbackDataList = useMock ? FEEDBACK_LIST_MOCK : apiFeedbackDataList;
+  const isLoadingResolved = useMock ? false : isLoading;
+  const isErrorResolved = useMock ? false : isError;
 
   return (
     <ListLayout data={feedbackDataList?.content}>
@@ -48,11 +55,11 @@ const FeedbackPage = () => {
         type="feedback"
         dataList={feedbackDataList}
         loading={{
-          isLoading,
+          isLoading: isLoadingResolved,
           loading: noticeIsLoading,
         }}
         error={{
-          isError,
+          isError: isErrorResolved,
           error: noticeIsError,
         }}
         slicedDataList={slicedNoticeDataList}

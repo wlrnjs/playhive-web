@@ -7,9 +7,16 @@ import Image from "next/image";
 import { cn } from "@/utils";
 import { Fragment } from "react";
 import MobileBackButtonWrapper from "./_components/MobileBackButton";
+import { MYPAGE_DATA_MOCK } from "@mock/mypageMock";
 
 const Mypage = () => {
-  const { data, isLoading } = useGetMyPageData();
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
+
+  const { data: apiData, isLoading: apiIsLoading } = useGetMyPageData();
+
+  const data = useMock ? MYPAGE_DATA_MOCK : apiData;
+  const isLoading = useMock ? false : apiIsLoading;
+
   const mypage = data?.data;
   const role = isLoading
     ? ""

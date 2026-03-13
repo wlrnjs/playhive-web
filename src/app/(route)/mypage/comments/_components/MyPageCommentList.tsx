@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import changeURLParams from "../../util/changeURLParams";
 import CommentEmpty from "@/app/_components/_comment/CommentEmpty";
 import useIsMobile from "@/utils/useIsMobile";
+import { MY_COMMENT_LIST_MOCK } from "@mock/mypageMock";
 
 interface PostResponse {
   commentType: "BOARD";
@@ -72,7 +73,14 @@ const MyPageCommentList = () => {
       : (searchParams.get("comment_type") as PostListConfig["commentType"]) ||
         "BOARD",
   };
-  const { data, isLoading } = useGetMyCommentList(postOptions);
+
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
+
+  const { data: apiData, isLoading: apiIsLoading } = useGetMyCommentList(postOptions);
+
+  const data = useMock ? MY_COMMENT_LIST_MOCK : apiData;
+  const isLoading = useMock ? false : apiIsLoading;
+
   const { content, pageInfo } = data?.data?.list || {};
 
   const handlePageChange = (page: number) => {

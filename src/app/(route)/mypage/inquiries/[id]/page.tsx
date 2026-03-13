@@ -11,6 +11,7 @@ import { CommentItem } from "@/_types/comment";
 import PostNavigation from "@/app/(route)/(community)/_components/PostNavigation";
 import { usePathname } from "next/navigation";
 import { cn } from "@/utils";
+import { INQUIRIES_DETAIL_MOCK } from "@mock/mypageMock";
 
 interface InquirieDetailProps {
   id: string;
@@ -34,7 +35,13 @@ const InquirieDetail = ({
   const unwrappedParams = use(params);
   const { id } = unwrappedParams;
   const pathname = usePathname();
-  const { data, refetch } = useGetInquiriesDetail(id);
+
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
+
+  const { data: apiData, refetch } = useGetInquiriesDetail(id);
+
+  const data = useMock ? INQUIRIES_DETAIL_MOCK : apiData;
+
   const inquirieDetail: InquirieDetailData = data?.data;
   const comments = useRef(null);
   const { data: authCheckData } = useAuthCheck();

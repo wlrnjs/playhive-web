@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import changeURLParams from "../../util/changeURLParams";
 import { cn } from "@/utils";
 import useIsMobile from "@/utils/useIsMobile";
+import { MY_POST_LIST_MOCK } from "@mock/mypageMock";
 
 const MyPagePostList = () => {
   const searchParams = useSearchParams();
@@ -28,7 +29,14 @@ const MyPagePostList = () => {
       "CONTENT",
     search: searchParams.get("search") || "",
   };
-  const { data, isLoading } = useMyPostList(postOptions);
+
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
+
+  const { data: apiData, isLoading: apiIsLoading } = useMyPostList(postOptions);
+
+  const data = useMock ? MY_POST_LIST_MOCK : apiData;
+  const isLoading = useMock ? false : apiIsLoading;
+
   const { content, pageInfo } = data?.data?.list || {};
   const isMobile = useIsMobile();
 
