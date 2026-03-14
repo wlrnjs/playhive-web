@@ -3,6 +3,7 @@ import React from "react";
 import FeedbackListBox from "../organisms/FeedbackListBox";
 import useGetFeedbackDataList from "@/_hooks/fetcher/customer/useGetFeedbackDataList";
 import useFeedbackQueryParams from "../../../../_hooks/useFeedbackQueryParams";
+import { FEEDBACK_LIST_MOCK } from "@mock/customerMock";
 
 interface FeedbackListContainerProps {
   searchParams: URLSearchParams;
@@ -15,12 +16,18 @@ const FeedbackListContainer = ({
 }: FeedbackListContainerProps) => {
   const feedbackOption = useFeedbackQueryParams();
 
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK === "true";
+
   // 개선요청 리스트
   const {
-    data: feedbackDataList,
+    data: apiFeedbackDataList,
     isLoading,
     isError,
   } = useGetFeedbackDataList(feedbackOption);
+
+  const feedbackDataList = useMock ? FEEDBACK_LIST_MOCK : apiFeedbackDataList;
+  const isLoadingResolved = useMock ? false : isLoading;
+  const isErrorResolved = useMock ? false : isError;
 
   return (
     <>
@@ -34,8 +41,8 @@ const FeedbackListContainer = ({
       {/* 리스트 */}
       <FeedbackListBox
         feedbackDataList={feedbackDataList}
-        isLoading={isLoading}
-        isError={isError}
+        isLoading={isLoadingResolved}
+        isError={isErrorResolved}
         searchParams={searchParams}
       />
     </>

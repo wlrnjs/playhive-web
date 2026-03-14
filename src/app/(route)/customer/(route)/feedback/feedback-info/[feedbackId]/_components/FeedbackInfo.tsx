@@ -7,6 +7,7 @@ import React, { Suspense } from "react";
 import { useScrollToComment } from "../../../_hooks/useScrollToComment";
 import FeedbackMetaContainer from "./templates/FeedbackMetaContainer";
 import dynamic from "next/dynamic";
+import { FEEDBACK_INFO_MOCK } from "@mock/customerMock";
 
 const FeedbackListContainer = dynamic(
   () => import("./templates/FeedbackListContainer"),
@@ -32,12 +33,18 @@ const FeedbackInfo = () => {
   // 리스트 검색 댓글 이동 로직
   useScrollToComment(searchParams);
 
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK === "true";
+
   // 개선요청 상세데이터
   const {
-    data: feedbackInfoData,
+    data: apiFeedbackInfoData,
     isLoading: feedbackIsLoading,
     isError: feedbackIsError,
   } = useGetFeedbackInfoData({ id });
+
+  const feedbackInfoData = useMock ? FEEDBACK_INFO_MOCK : apiFeedbackInfoData;
+  const isLoadingResolved = useMock ? false : feedbackIsLoading;
+  const isErrorResolved = useMock ? false : feedbackIsError;
 
   return (
     <>
@@ -46,8 +53,8 @@ const FeedbackInfo = () => {
         feedbackInfoData={feedbackInfoData}
         id={id}
         adminRole={adminRole}
-        isLoading={feedbackIsLoading}
-        isError={feedbackIsError}
+        isLoading={isLoadingResolved}
+        isError={isErrorResolved}
       />
 
       {/* 하단 리스트 */}
