@@ -106,3 +106,47 @@ export const FEEDBACK_LIST_MOCK: {
     totalPage: 1,
   },
 };
+
+import { NoticeInfoItemType } from "@/app/(route)/customer/_types/NoticeInfoItemType";
+import { FeedbackInfoType } from "@/app/(route)/customer/(route)/feedback/_types/FeedbackInfoType";
+
+// Mock Notice Info Data
+export const NOTICE_INFO_MOCK: NoticeInfoItemType = {
+  noticeId: 1,
+  publicId: "admin",
+  nickname: "관리자",
+  clientIp: "127.0.0.1",
+  title: "서비스 업데이트 안내",
+  content: "<p>플레이하이브 서비스가 업데이트 되었습니다. 더욱 편리한 서비스를 제공하기 위해 노력하겠습니다.</p>",
+  imgUrl: "",
+  recommendCount: 0,
+  commentCount: 0,
+  viewCount: 123,
+  createdAt: new Date().toISOString(),
+  modifiedAt: new Date().toISOString(),
+  isRecommended: false,
+  link: "https://playhive.com",
+  nextId: 2,
+  previousId: 0,
+};
+
+// Mock Feedback Info Data
+export const FEEDBACK_INFO_MOCK: FeedbackInfoType = {
+  clientIp: "127.0.0.1",
+  commentCount: 2,
+  content: "<p>게시판 기능이 개선되었으면 좋겠습니다. 현재는 이런저런 불편함이 있습니다.</p>",
+  createdAt: new Date().toISOString(),
+  imgUrl: "",
+  improvementId: 1,
+  isRecommended: false,
+  link: "https://playhive.com",
+  modifiedAt: new Date().toISOString(),
+  nextId: 2,
+  nickname: "유저1",
+  previousId: null,
+  publicId: "user1",
+  recommendCount: 0,
+  status: "RECEIVED",
+  title: "게시판 기능 개선 요청",
+  viewCount: 45,
+};

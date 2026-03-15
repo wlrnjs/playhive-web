@@ -7,6 +7,7 @@ import React, { Suspense } from "react";
 import NoticeMetaContainer from "./templates/NoticeMetaContainer";
 import { useScrollToComment } from "../../../../feedback/_hooks/useScrollToComment";
 import dynamic from "next/dynamic";
+import { NOTICE_INFO_MOCK } from "@mock/customerMock";
 
 const NoticeListContainer = dynamic(
   () => import("./templates/NoticeListContainer"),
@@ -31,11 +32,17 @@ const NoticeInfo = () => {
 
   useScrollToComment(searchParams);
 
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK === "true";
+
   const {
-    data: noticeInfoData,
+    data: apiNoticeInfoData,
     isLoading,
     isError,
   } = useGetNoticeInfoData({ id });
+
+  const noticeInfoData = useMock ? NOTICE_INFO_MOCK : apiNoticeInfoData;
+  const isLoadingResolved = useMock ? false : isLoading;
+  const isErrorResolved = useMock ? false : isError;
 
   return (
     <>
@@ -44,8 +51,8 @@ const NoticeInfo = () => {
         noticeInfoData={noticeInfoData}
         id={id}
         adminRole={adminRole}
-        isLoading={isLoading}
-        isError={isError}
+        isLoading={isLoadingResolved}
+        isError={isErrorResolved}
       />
 
       {/* 하단 리스트 */}

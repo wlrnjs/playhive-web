@@ -3,6 +3,7 @@ import CustomerTalkToolbar from "@/app/(route)/customer/_components/ui/CustomerT
 import NoticeListBox from "../organisms/NoticeListBox";
 import useGetNoticeDataList from "@/_hooks/fetcher/customer/useGetNoticeDataList";
 import useNoticeQueryParams from "../../_hooks/useNoticeQueryParams";
+import { NOTICE_LIST_MOCK } from "@mock/customerMock";
 
 interface NoticeListContainerProps {
   searchParams: URLSearchParams;
@@ -15,11 +16,17 @@ const NoticeListContainer = ({
 }: NoticeListContainerProps) => {
   const noticeOption = useNoticeQueryParams();
 
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK === "true";
+
   const {
-    data: noticeListData,
+    data: apiNoticeListData,
     isLoading,
     isError,
   } = useGetNoticeDataList(noticeOption);
+
+  const noticeListData = useMock ? NOTICE_LIST_MOCK : apiNoticeListData;
+  const isLoadingResolved = useMock ? false : isLoading;
+  const isErrorResolved = useMock ? false : isError;
 
   return (
     <>
@@ -32,8 +39,8 @@ const NoticeListContainer = ({
 
       {/* 리스트 */}
       <NoticeListBox
-        isLoading={isLoading}
-        isError={isError}
+        isLoading={isLoadingResolved}
+        isError={isErrorResolved}
         noticeListData={noticeListData}
         searchParams={searchParams}
       />
