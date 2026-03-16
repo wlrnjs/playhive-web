@@ -1,5 +1,16 @@
 // MOCK/mypageMock.ts
 
+export const USER_INFO_MOCK = {
+  data: {
+    email: "mockuser@example.com",
+    tel: "01012345678",
+    nickname: "목업유저",
+    birthDate: "900101",
+    genderType: "M",
+    imageUrl: "",
+  }
+};
+
 export const MYPAGE_DATA_MOCK = {
   data: {
     role: "USER",
