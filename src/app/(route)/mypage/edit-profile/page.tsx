@@ -16,6 +16,7 @@ import { cn } from "@/utils";
 import useLogout from "@/_hooks/fetcher/mypage/useLogout";
 import ConfirmModal from "@/app/_components/ConfirmModal";
 import MobileBackButtonWrapper from "../_components/MobileBackButton";
+import { MYPAGE_DATA_MOCK, USER_INFO_MOCK } from "@mock/mypageMock";
 
 interface FormData {
   email: string;
@@ -71,8 +72,16 @@ const useModifyUserInfo = () => {
 const EditProfile = () => {
   const queryClient = useQueryClient();
   const { error, success } = useToast();
-  const { data: userInfo, isLoading: userInfoIsLoading } = useUserInfo();
-  const { data: mypageData, isLoading } = useGetMyPageData();
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
+
+  const { data: apiUserInfo, isLoading: userInfoIsLoading } = useUserInfo();
+  const { data: apiMypageData, isLoading } = useGetMyPageData();
+
+  const userInfo = useMock ? USER_INFO_MOCK : apiUserInfo;
+  const mypageData = useMock ? MYPAGE_DATA_MOCK : apiMypageData;
+
+  const isUserInfoLoading = useMock ? false : userInfoIsLoading;
+
   const { mutate: modifyUserInfo, isPending: modifyUserInfoIsPending } =
     useModifyUserInfo();
   const { mutate: deleteAccount, isPending: deleteAccountIsPending } =
@@ -201,7 +210,7 @@ const EditProfile = () => {
       <div
         className={cn("min-h-[958px] px-[12px] py-[24px]", "mobile:p-[16px]")}
       >
-        {!userInfoIsLoading && (
+        {!isUserInfoLoading && (
           <form
             className="max-w-[328px] min-h-[910px] mx-auto space-y-[24px]"
             onSubmit={handleSubmit(onSubmit)}

@@ -131,3 +131,14 @@ export const INQUIRIES_DETAIL_MOCK = {
     previousId: null,
   }
 };
+
+export const USER_INFO_MOCK = {
+  data: {
+    email: "mock@example.com",
+    tel: "01012345678",
+    nickname: "유저닉네임",
+    birthDate: "980101",
+    genderType: "M" as const,
+    imageUrl: "",
+  }
+};
