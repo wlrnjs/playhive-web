@@ -106,3 +106,47 @@ export const FEEDBACK_LIST_MOCK: {
     totalPage: 1,
   },
 };
+
+import { NoticeInfoItemType } from "@/app/(route)/customer/_types/NoticeInfoItemType";
+import { FeedbackInfoType } from "@/app/(route)/customer/(route)/feedback/_types/FeedbackInfoType";
+
+// Mock Notice Detail Data
+export const NOTICE_INFO_MOCK: NoticeInfoItemType = {
+  noticeId: 1,
+  publicId: "admin",
+  nickname: "관리자",
+  clientIp: "127.0.0.1",
+  title: "서비스 업데이트 안내",
+  content: "<p>안녕하세요, <strong>PlayHive</strong> 입니다.</p><p>새로운 기능이 업데이트되었습니다.</p>",
+  imgUrl: "",
+  recommendCount: 10,
+  commentCount: 5,
+  viewCount: 100,
+  createdAt: "2024-03-25T10:00:00.000Z",
+  modifiedAt: "2024-03-25T10:00:00.000Z",
+  isRecommended: false,
+  link: "",
+  nextId: 2,
+  previousId: 0,
+};
+
+// Mock Feedback Detail Data
+export const FEEDBACK_INFO_MOCK: FeedbackInfoType = {
+  clientIp: "127.0.0.1",
+  commentCount: 2,
+  content: "<p>게시판 로딩 속도가 느립니다.</p><p>개선 부탁드립니다.</p>",
+  createdAt: "2024-03-26T14:30:00.000Z",
+  imgUrl: "",
+  improvementId: 1,
+  isRecommended: false,
+  link: "",
+  modifiedAt: "2024-03-26T14:30:00.000Z",
+  nextId: 2,
+  nickname: "유저1",
+  previousId: 0,
+  publicId: "user1",
+  recommendCount: 3,
+  status: "RECEIVED",
+  title: "게시판 기능 개선 요청",
+  viewCount: 50,
+};
