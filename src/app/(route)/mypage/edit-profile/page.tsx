@@ -16,6 +16,7 @@ import { cn } from "@/utils";
 import useLogout from "@/_hooks/fetcher/mypage/useLogout";
 import ConfirmModal from "@/app/_components/ConfirmModal";
 import MobileBackButtonWrapper from "../_components/MobileBackButton";
+import { EDIT_PROFILE_MOCK } from "@mock/mypageMock";
 
 interface FormData {
   email: string;
@@ -71,7 +72,12 @@ const useModifyUserInfo = () => {
 const EditProfile = () => {
   const queryClient = useQueryClient();
   const { error, success } = useToast();
-  const { data: userInfo, isLoading: userInfoIsLoading } = useUserInfo();
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
+
+  const { data: apiUserInfo, isLoading: apiUserInfoIsLoading } = useUserInfo();
+  const userInfo = useMock ? EDIT_PROFILE_MOCK : apiUserInfo;
+  const userInfoIsLoading = useMock ? false : apiUserInfoIsLoading;
+
   const { data: mypageData, isLoading } = useGetMyPageData();
   const { mutate: modifyUserInfo, isPending: modifyUserInfoIsPending } =
     useModifyUserInfo();

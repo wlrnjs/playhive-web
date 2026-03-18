@@ -131,3 +131,15 @@ export const INQUIRIES_DETAIL_MOCK = {
     previousId: null,
   }
 };
+
+export const EDIT_PROFILE_MOCK = {
+  data: {
+    email: "mockuser@example.com",
+    password: "",
+    tel: "01012345678",
+    nickname: "목업유저",
+    birthDate: "900101",
+    genderType: "M" as const,
+    imageUrl: null,
+  }
+};
