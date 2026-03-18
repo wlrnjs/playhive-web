@@ -1,0 +1,17 @@
+
+> myteam@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.5.9
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.2:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.6s
+ ○ Compiling /mypage/edit-profile ...
+ ✓ Compiled /mypage/edit-profile in 11.2s (4314 modules)
+ GET /mypage/edit-profile 200 in 13240ms
+ ⚠ The "images.domains" configuration is deprecated. Please use "images.remotePatterns" configuration instead.
+ ✓ Compiled in 2.4s (2046 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 4.4s (4444 modules)
