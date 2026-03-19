@@ -16,6 +16,7 @@ import { cn } from "@/utils";
 import useLogout from "@/_hooks/fetcher/mypage/useLogout";
 import ConfirmModal from "@/app/_components/ConfirmModal";
 import MobileBackButtonWrapper from "../_components/MobileBackButton";
+import { USER_INFO_MOCK } from "@mock/mypageMock";
 
 interface FormData {
   email: string;
@@ -28,6 +29,9 @@ interface FormData {
 }
 
 const fetchUserInfo = async () => {
+  if (process.env.NEXT_PUBLIC_USE_MOCK !== "false") {
+    return USER_INFO_MOCK;
+  }
   const response = await axios(
     `${process.env.NEXT_PUBLIC_API_URL}api/my-page/modify`,
     {
