@@ -32,17 +32,17 @@ const NoticeInfo = () => {
 
   useScrollToComment(searchParams);
 
-  const useMock = process.env.NEXT_PUBLIC_USE_MOCK !== "false";
+  const useMock = process.env.NEXT_PUBLIC_USE_MOCK === "true";
 
   const {
-    data: apiData,
-    isLoading: apiIsLoading,
-    isError: apiIsError,
+    data: apiNoticeInfoData,
+    isLoading,
+    isError,
   } = useGetNoticeInfoData({ id });
 
-  const noticeInfoData = useMock ? NOTICE_INFO_MOCK : apiData;
-  const isLoading = useMock ? false : apiIsLoading;
-  const isError = useMock ? false : apiIsError;
+  const noticeInfoData = useMock ? NOTICE_INFO_MOCK : apiNoticeInfoData;
+  const isLoadingResolved = useMock ? false : isLoading;
+  const isErrorResolved = useMock ? false : isError;
 
   return (
     <>
@@ -51,8 +51,8 @@ const NoticeInfo = () => {
         noticeInfoData={noticeInfoData}
         id={id}
         adminRole={adminRole}
-        isLoading={isLoading}
-        isError={isError}
+        isLoading={isLoadingResolved}
+        isError={isErrorResolved}
       />
 
       {/* 하단 리스트 */}
